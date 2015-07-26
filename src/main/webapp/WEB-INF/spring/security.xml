@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:security="http://www.springframework.org/schema/security"
+  xmlns:oauth="http://www.springframework.org/schema/security/oauth2"
+  xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+        http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
+        http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2-2.0.xsd">
+
+
+
+  <security:authentication-manager
+    alias="authenticationManager">
+    <security:authentication-provider
+      user-service-ref="UserDetailServiceImpl" />
+  </security:authentication-manager>
+
+  <bean id="UserDetailServiceImpl"
+    class="org.shibaty.spring4rest.authentication.UserDetailServiceImpl" />
+
+  <security:http pattern="/auth**" security="none" />
+  <security:http entry-point-ref="authenticationEntryPoint"
+    create-session="never">
+    <security:intercept-url pattern="/**"
+      access="hasRole('USER')" />
+  </security:http>
+
+  <bean id="authenticationEntryPoint"
+    class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
+    <constructor-arg value="${auth.url}" />
+  </bean>
+
+  <oauth:resource-server id="restserver"
+    resource-id="restserver" />
+
+  <oauth:authorization-server
+    authorization-endpoint-url="/auth" client-details-service-ref="clientDetailsService"
+    token-endpoint-url="/auth" />
+
+  <oauth:client-details-service id="clientDetailsService">
+    <oauth:client client-id="client"
+      authorized-grant-types="password" authorities="USER" scope="read, write"
+      resource-ids="restserver" secret="123456" />
+  </oauth:client-details-service>
+
+</beans>

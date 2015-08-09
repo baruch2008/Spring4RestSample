@@ -28,7 +28,7 @@ public class UsersService {
     Users users = new Users();
     for (int i = 0; i < 10; i++) {
       User user = new User(i, "taro" + i, "yamada" + i);
-      users.getUsers().add(user);
+      users.getUser().add(user);
     }
     return users;
   }

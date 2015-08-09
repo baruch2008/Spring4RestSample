@@ -7,56 +7,27 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.xml.bind.annotation.XmlElementRef;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * @author Yasutaka
  *
  */
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 @XmlRootElement
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Users implements Serializable {
 
   /**
    *
    */
-  List<User> users;
-
-  /**
-   *
-   */
-  public Users() {
-    this.users = new ArrayList<User>();
-  }
-
-  /**
-   * @param users
-   */
-  public Users(List<User> users) {
-    this.users = users;
-  }
-
-  /**
-   * @return users
-   */
-  @XmlElementRef
-  public List<User> getUsers() {
-    return users;
-  }
-
-  /**
-   * @param users セットする users
-   */
-  public void setUsers(List<User> users) {
-    this.users = users;
-  }
-
-  /* (非 Javadoc)
-   * @see java.lang.Object#toString()
-   */
-  @Override
-  public String toString() {
-    return "Users [users=" + users + "]";
-  }
-
+  List<User> user = new ArrayList<User>();
 }

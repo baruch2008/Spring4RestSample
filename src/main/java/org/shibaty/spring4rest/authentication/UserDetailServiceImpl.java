@@ -19,9 +19,13 @@ public class UserDetailServiceImpl implements UserDetailsService {
    * @see org.springframework.security.core.userdetails.UserDetailsService#loadUserByUsername(java.lang.String)
    */
   @Override
-  public UserDetails loadUserByUsername(String arg0) throws UsernameNotFoundException {
-    // TODO 自動生成されたメソッド・スタブ
-    return null;
+  public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+
+    UserDetailsImpl user = new UserDetailsImpl();
+
+    // TODO authentication
+
+    return user;
   }
 
 }

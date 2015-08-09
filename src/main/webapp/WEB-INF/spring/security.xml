@@ -6,8 +6,6 @@
         http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-4.0.xsd
         http://www.springframework.org/schema/security/oauth2 http://www.springframework.org/schema/security/spring-security-oauth2-2.0.xsd">
 
-
-
   <security:authentication-manager
     alias="authenticationManager">
     <security:authentication-provider
@@ -19,14 +17,14 @@
 
   <security:http pattern="/auth**" security="none" />
   <security:http entry-point-ref="authenticationEntryPoint"
-    create-session="never">
+    create-session="stateless">
     <security:intercept-url pattern="/**"
       access="hasRole('USER')" />
   </security:http>
 
   <bean id="authenticationEntryPoint"
     class="org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint">
-    <constructor-arg value="${auth.url}" />
+    <constructor-arg value="/auth" />
   </bean>
 
   <oauth:resource-server id="restserver"
